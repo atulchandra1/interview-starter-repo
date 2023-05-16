@@ -1,0 +1,147 @@
+$color_1: #fff;
+$background-color_1: #4CAF50;
+$background-color_2: #f44336;
+$border-color_1: #007bff;
+$border-top-color_1: #ffffff;
+
+@keyframes spinner {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.user-management {
+  padding: 20px;
+
+  .header {
+    border: 1px solid #b7b1b1;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .body {
+    border: 1px solid #b7b1b1;
+    padding: 20px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+}
+
+table {
+  width: 100%;
+}
+
+tr.user-detail-row {
+  height: 0;
+}
+
+tr.user-row {
+  &:not(.user-expanded-row) {
+    &:hover {
+      background: whitesmoke;
+    }
+
+    &:active {
+      background: #efefef;
+    }
+  }
+}
+
+.user-row {
+  td {
+    border-bottom-width: 0;
+  }
+}
+
+.user-details {
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+
+  .user-attribute {
+    display: flex;
+    padding: 10px 20px 10px 10px;
+
+    label {
+      display: inline-block;
+      font-size: 18px;
+      margin-bottom: 5px;
+      line-height: 40px;
+      width: 160px;
+    }
+  }
+}
+
+
+input[type="text"] {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: $border-color_1;
+    box-shadow: 0 0 5px #007bff;
+  }
+}
+
+.button-container {
+  margin: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+  position: relative;
+}
+
+button.save {
+  background-color: $background-color_1;
+  color: $color_1;
+}
+
+button.cancel {
+  background-color: $background-color_2;
+  color: $color_1;
+}
+
+.button-loading {
+  .button-text {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 4px solid transparent;
+    border-top-color: $border-top-color_1;
+    border-radius: 50%;
+    animation: spinner 1s ease infinite;
+  }
+}
+
+button[disabled], input[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.mat-icon {
+  height: 17px;
+}

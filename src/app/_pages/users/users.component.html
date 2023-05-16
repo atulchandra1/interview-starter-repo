@@ -1,0 +1,45 @@
+<div class="user-management">
+    <div class="header">
+        User Management
+    </div>
+    <div class="body">
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+            <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay;let i = index">
+                <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                <td mat-cell *matCellDef="let user">
+                    <mat-icon *ngIf="i === 0">
+                        {{ expandedUser !== user ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
+                    </mat-icon>
+                    <span>{{user[column]}} </span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let user" [attr.colspan]="columnsToDisplay.length">
+                    <div class="user-details" [@detailExpand]="user == expandedUser ? 'expanded' : 'collapsed'">
+                        <div *ngFor="let column of columnsToDisplay; let i = index" class="user-attribute">
+                            <label for="input-text">{{column}} : </label>
+                            <input type="text" placeholder="Enter the value" [(ngModel)]="currentUser[column]"
+                                [disabled]="column === 'id'">
+                        </div>
+                    </div>
+                    <div class="button-container" [@detailExpand]="user == expandedUser ? 'expanded' : 'collapsed'">
+                        <button type="button" class="button save" (click)="saveUser(user)"
+                            [ngClass]="{'button-loading': isLoading === true}" [disabled]="isLoading">
+                            <span class="button-text">Save</span>
+                        </button>
+                        <button class="cancel" (click)="cancelEditing()">Cancel</button>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let user; columns: columnsToDisplay;" class="user-row"
+                [class.user-expanded-row]="expandedUser === user"
+                (click)="expandedUser = expandedUser === user ? null : user; assignCurrentUser()">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="user-detail-row"></tr>
+        </table>
+
+    </div>
+</div>
